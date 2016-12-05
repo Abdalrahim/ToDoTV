@@ -41,15 +41,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="Qi6-4q-4wO">
+                            <searchBar contentMode="redraw" fixedFrame="YES" barStyle="blackTranslucent" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="Qi6-4q-4wO">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <color key="barTintColor" red="0.11157598350253806" green="0.11157598350253806" blue="0.11157598350253806" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
+                                <connections>
+                                    <outlet property="delegate" destination="n4R-Sb-gpm" id="5yF-WC-Rqx"/>
+                                </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yg0-sL-nhH">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.073901491116751261" green="0.073901491116751261" blue="0.073901491116751261" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="separatorColor" red="0.13457725253807107" green="0.13457725253807107" blue="0.13457725253807107" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="100" id="Hd3-MG-Yxr" customClass="SeriesSearchTableViewCell" customModule="ToDoTV" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="100"/>
@@ -65,13 +70,13 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="eMC-2o-ZV9">
                                                     <rect key="frame" x="79" y="25" width="159" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="posterImage" destination="QzP-pF-DtN" id="BD5-cD-s5A"/>
                                             <outlet property="seriesName" destination="eMC-2o-ZV9" id="Nvi-6X-1pu"/>
@@ -140,10 +145,13 @@
         <scene sceneID="EwS-1S-QHE">
             <objects>
                 <tabBarController id="VCE-BA-ZYs" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="OO0-MZ-voA">
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" barStyle="black" translucent="NO"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" id="OO0-MZ-voA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="1" green="0.0093617555427757404" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="Enr-Au-InC" kind="relationship" relationship="viewControllers" id="J5h-bE-7rb"/>

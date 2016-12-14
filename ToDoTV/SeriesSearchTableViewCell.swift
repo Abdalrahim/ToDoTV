@@ -15,4 +15,5 @@ class SeriesSearchTableViewCell: UITableViewCell {
     
     @IBOutlet weak var seriesName: UILabel!
     
+    @IBOutlet weak var status: UILabel!
 }

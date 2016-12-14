@@ -11,18 +11,18 @@ import SwiftyJSON
 
 struct SeriesSearch {
     let title: String
-    let imdb: Double
-    let year: Double
+    let year: String
+    let link: String
+    let status: String
     let network: String
     let posterImageView: String
     
-    
     init(json: JSON) {
         self.title = json["show"]["name"].stringValue
-        self.imdb = json["show"]["rating"]["average"].doubleValue
-        self.year = json["show"]["premiered"].doubleValue
+        self.year = json["show"]["status"].stringValue
+        self.link = json["show"]["_links"]["self"]["href"].stringValue
+        self.status = json["show"]["status"].stringValue
         self.network = json["show"]["network"]["name"].stringValue
-        self.posterImageView = json["show"]["image"]["original"].stringValue
-        
+        self.posterImageView = json["show"]["image"]["medium"].stringValue
     }
 }

@@ -12,7 +12,7 @@ import Alamofire
 import AlamofireImage
 import AlamofireNetworkActivityIndicator
 
-class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate {
     
     @IBOutlet weak var searchTV: UISearchBar!
     
@@ -24,6 +24,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         resultTable.delegate = self
         resultTable.dataSource = self
+        resultTable.alpha = 0
         
         searchTV.delegate = self
         
@@ -37,7 +38,19 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Dispose of any resources that can be recreated.
     }
     
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        if velocity.y > 0 {
+            dismissKeyboard()
+        }
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text == "" {
+            resultTable.alpha = 0
+        }
+        else {
+            resultTable.alpha = 1
+        }
         API()
     }
     
@@ -47,7 +60,14 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     func API() {
-        let urlString = "http://api.tvmaze.com/search/shows?q=\(searchTV.text!)"
+        var searchText = searchTV.text!
+        
+        if searchText.contains(" ") == true {
+            
+            searchText = searchText.replacingOccurrences(of: " ", with: "+")
+        }
+        
+        let urlString = "http://api.tvmaze.com/search/shows?q=\(searchText)"
         Alamofire.request(urlString, method: .get, encoding: JSONEncoding.default, headers: [:]).validate().responseJSON() { response in
             switch response.result {
             case .success( _):
@@ -93,10 +113,12 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         cell.seriesName.text = aseries[indexPath.row].title
         
+        cell.status.text = aseries[indexPath.row].status
+        
         let url = URL(string: aseries[indexPath.row].posterImageView)
         
         if url == nil  {
-            
+            cell.posterImage.image = #imageLiteral(resourceName: "Untitled")
         }
         else {
             
@@ -115,12 +137,28 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         cell.posterImage.image = UIImage(data: data!)
                     }
                 }
+                
             }
         }
         
         return cell
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier {
+            if identifier == "showSeries" {
+                // 1
+                let indexPath = resultTable.indexPathForSelectedRow!
+                // 2
+                let show = aseries[indexPath.row].link
+                // 3
+                let seriesPreviewController = segue.destination as! SeriesPreviewController
+                // 4
+                seriesPreviewController.link = show
+                
+            }
+        }
+    }
     
 }
 extension SearchViewController {

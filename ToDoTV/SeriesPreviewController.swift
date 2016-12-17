@@ -12,9 +12,13 @@ import Alamofire
 import AlamofireImage
 import AlamofireNetworkActivityIndicator
 
-class SeriesPreviewController: UIViewController {
+class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     var link: String = ""
+    
+    var id: String = ""
+    
+    @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var seriesDetails: UIScrollView!
     
@@ -24,21 +28,25 @@ class SeriesPreviewController: UIViewController {
     
     @IBOutlet weak var rating: UILabel!
     
-    @IBOutlet weak var status: UITextView!
+    @IBOutlet weak var status: UILabel!
+    
+    var cast: [SeriesCast] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController!.navigationBar.topItem!.title = ""
-        // Do any additional setup after loading the view, typically from a nib.
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.tableHeaderView?.backgroundColor = UIColor.red
     }
     
     override func viewDidAppear(_ animated: Bool) {
         API()
-        
+        castAPI()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func API() {
@@ -59,20 +67,23 @@ class SeriesPreviewController: UIViewController {
                     self.seriesSummary.text! = self.seriesSummary.text!.replacingOccurrences(of: "<em>", with: "")
                     self.seriesSummary.text! = self.seriesSummary.text!.replacingOccurrences(of: "</em>", with: "")
                     
-                    
-                    if retrieve.rating == "" {
+                    if retrieve.rating == 0.0 {
                         self.rating.text! = "Unavailable"
                     } else {
-                        self.rating.text! = retrieve.rating
+                        self.rating.text! = String(format: "%.0f",retrieve.rating)
                     }
                     
                     if retrieve.status == "Running" {
-                        self.status.text! = "\(retrieve.status)|\(retrieve.network)|\(retrieve.day) @ \(retrieve.time)"
+                        if retrieve.day.count == 1 {
+                            self.status.text! = "\(retrieve.status) | \(retrieve.day.first!) @ \(retrieve.time) | \(retrieve.network)"
+                        }
+                        else {
+                            self.status.text! = "\(retrieve.status) | Daily @ \(retrieve.time) | \(retrieve.network)"
+                        }
+                    
                     } else {
-                        self.status.text! = retrieve.status
-                    
+                        self.status.text! = "\(retrieve.status) | \(retrieve.network)"
                     }
-                    
                     
                     let url = URL(string: retrieve.posterImageView)
                     
@@ -82,7 +93,6 @@ class SeriesPreviewController: UIViewController {
                         DispatchQueue.global().async {
                             
                             let data = try? Data(contentsOf: url!)
-                            //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
                             
                             if data == nil {
                                 
@@ -94,7 +104,6 @@ class SeriesPreviewController: UIViewController {
                                 }
                             }
                         }
-                        
                     }
                     
                     self.navigationItem.title = retrieve.title
@@ -107,8 +116,92 @@ class SeriesPreviewController: UIViewController {
                 
             }
         }
+    }
+    
+    func castAPI() {
+        let urlString = "http://api.tvmaze.com/shows/\(self.id)/cast"
+        Alamofire.request(urlString, method: .get, encoding: JSONEncoding.default, headers: [:]).validate().responseJSON() { response in
+            switch response.result {
+            case .success( _):
+                if let value = response.result.value {
+                    
+                    self.cast.removeAll()
+                    
+                    let json = JSON(value)
+                    
+                    // Do what you need to with JSON here!
+                    // The rest is all boiler plate code you'll use for API request
+                    
+                    let jsonMovies = json.arrayValue
+                    
+                    for series in jsonMovies{
+                        self.cast.append(SeriesCast(json: series))
+                    }
+                    
+                    self.tableView.reloadData()
+                    
+                }
+            case .failure(let error):
+                print(error)
+                
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let titles = ["Cast"]
+        
+        return titles[section]
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        //tableview.sectionHeaderHeight.add(10)
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        
+        return cast.count
+    }
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = UIColor.red
         
     }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SeriesCastTableViewCell
+        
+        cell.actorName.text! = cast[indexPath.row].name
+        
+        let url = URL(string: cast[indexPath.row].image)
+        
+        if url == nil  {
+            cell.actorImage.image = #imageLiteral(resourceName: "Untitled")
+        }
+        else {
+            
+            
+            DispatchQueue.global().async {
+                
+                let data = try? Data(contentsOf: url!)
+                //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                
+                if data == nil {
+                    
+                }
+                else {
+                    
+                    DispatchQueue.main.async {
+                        cell.actorImage.image = UIImage(data: data!)
+                    }
+                }
+                
+            }
+        }
+        
+        return cell
+    }
 }
 

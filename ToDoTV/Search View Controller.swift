@@ -151,10 +151,12 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 let indexPath = resultTable.indexPathForSelectedRow!
                 // 2
                 let show = aseries[indexPath.row].link
+                let id = aseries[indexPath.row].id
                 // 3
                 let seriesPreviewController = segue.destination as! SeriesPreviewController
                 // 4
                 seriesPreviewController.link = show
+                seriesPreviewController.id = id
                 
             }
         }

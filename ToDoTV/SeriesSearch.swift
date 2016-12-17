@@ -11,6 +11,7 @@ import SwiftyJSON
 
 struct SeriesSearch {
     let title: String
+    let id: String
     let year: String
     let link: String
     let status: String
@@ -19,6 +20,7 @@ struct SeriesSearch {
     
     init(json: JSON) {
         self.title = json["show"]["name"].stringValue
+        self.id = json["show"]["id"].stringValue
         self.year = json["show"]["status"].stringValue
         self.link = json["show"]["_links"]["self"]["href"].stringValue
         self.status = json["show"]["status"].stringValue

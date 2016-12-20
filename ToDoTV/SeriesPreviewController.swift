@@ -31,6 +31,7 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
     @IBOutlet weak var status: UILabel!
     
     var cast: [SeriesCast] = []
+    var actorImage: [UIImage] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +71,7 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
                     if retrieve.rating == 0.0 {
                         self.rating.text! = "Unavailable"
                     } else {
-                        self.rating.text! = String(format: "%.0f",retrieve.rating)
+                        self.rating.text! = String(format: "%.1f",retrieve.rating)
                     }
                     
                     if retrieve.status == "Running" {
@@ -126,6 +127,7 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
                 if let value = response.result.value {
                     
                     self.cast.removeAll()
+                    self.actorImage.removeAll()
                     
                     let json = JSON(value)
                     
@@ -136,6 +138,32 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
                     
                     for series in jsonMovies{
                         self.cast.append(SeriesCast(json: series))
+                    }
+                    
+                    for i in self.cast {
+                        let url = URL(string: i.image)
+                        
+                        if url == nil  {
+                            self.actorImage.append(#imageLiteral(resourceName: "Untitled"))
+                        }
+                        else {
+                            
+                            
+                            DispatchQueue.global().sync {
+                                
+                                let data = try? Data(contentsOf: url!)
+                                //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                                
+                                if data == nil {
+                                    
+                                }
+                                else {
+                                    
+                                    self.actorImage.append(UIImage(data: data!)!)
+                                }
+                                
+                            }
+                        }
                     }
                     
                     self.tableView.reloadData()
@@ -165,6 +193,7 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
         
         return cast.count
     }
+    
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         view.tintColor = UIColor.red
         
@@ -175,31 +204,7 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
         
         cell.actorName.text! = cast[indexPath.row].name
         
-        let url = URL(string: cast[indexPath.row].image)
-        
-        if url == nil  {
-            cell.actorImage.image = #imageLiteral(resourceName: "Untitled")
-        }
-        else {
-            
-            
-            DispatchQueue.global().async {
-                
-                let data = try? Data(contentsOf: url!)
-                //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-                
-                if data == nil {
-                    
-                }
-                else {
-                    
-                    DispatchQueue.main.async {
-                        cell.actorImage.image = UIImage(data: data!)
-                    }
-                }
-                
-            }
-        }
+        cell.actorImage.image = actorImage[indexPath.row]
         
         return cell
     }

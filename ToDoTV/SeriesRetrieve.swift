@@ -6,7 +6,6 @@
 //  Copyright © 2016 Abdalrahim. All rights reserved.
 //
 
-
 import SwiftyJSON
 
 struct SeriesRetrieve {

@@ -14,6 +14,8 @@ class SeriesCastTableViewCell: UITableViewCell {
     
     @IBOutlet weak var actorName: UILabel!
     
+    @IBOutlet weak var role: UILabel!
+    
     @IBOutlet weak var actorImage: UIImageView!
     
 }

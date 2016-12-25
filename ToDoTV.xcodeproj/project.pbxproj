@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		0F076A191DF5CBD9004F8403 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F076A171DF5CBD9004F8403 /* Main.storyboard */; };
 		0F076A1C1DF82D4D004F8403 /* SeriesPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F076A1B1DF82D4D004F8403 /* SeriesPreviewController.swift */; };
+		0F159C5D1E0AF8FE00085DBB /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F159C5B1E0AF8FE00085DBB /* Realm.framework */; };
+		0F159C5E1E0AF8FE00085DBB /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F159C5C1E0AF8FE00085DBB /* RealmSwift.framework */; };
+		0F159C5F1E0AFC2100085DBB /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F159C5B1E0AF8FE00085DBB /* Realm.framework */; };
+		0F159C601E0AFC2100085DBB /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0F159C5B1E0AF8FE00085DBB /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0F159C611E0AFC2100085DBB /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F159C5C1E0AF8FE00085DBB /* RealmSwift.framework */; };
+		0F159C621E0AFC2100085DBB /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0F159C5C1E0AF8FE00085DBB /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0F159C651E0B1FF100085DBB /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F159C641E0B1FF100085DBB /* Reachability.swift */; };
 		0F198B9C1DF1E8E500184B81 /* SeriesSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F198B9B1DF1E8E500184B81 /* SeriesSearchTableViewCell.swift */; };
 		0F198B9E1DF1F68400184B81 /* SeriesSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F198B9D1DF1F68300184B81 /* SeriesSearch.swift */; };
 		0F538B691DFC342E006F5DC6 /* SeriesRetrieve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F538B681DFC342E006F5DC6 /* SeriesRetrieve.swift */; };
@@ -21,12 +28,31 @@
 		0F7DFE571DEE0484003F17AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F7DFE551DEE0484003F17AC /* LaunchScreen.storyboard */; };
 		0F7DFE5F1DEF3F88003F17AC /* Feed View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7DFE5E1DEF3F88003F17AC /* Feed View Controller.swift */; };
 		0F7DFE611DEF4086003F17AC /* Search View Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7DFE601DEF4086003F17AC /* Search View Controller.swift */; };
+		0F9841211E0ADE8700CFB299 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9841201E0ADE8700CFB299 /* RealmHelper.swift */; };
 		F6437DC4DDDB25EB4BDACBB7 /* Pods_ToDoTV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D4D1DFF0C5B6E221788F249 /* Pods_ToDoTV.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0F159C631E0AFC2200085DBB /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				0F159C621E0AFC2100085DBB /* RealmSwift.framework in Embed Frameworks */,
+				0F159C601E0AFC2100085DBB /* Realm.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0F076A181DF5CBD9004F8403 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0F076A1B1DF82D4D004F8403 /* SeriesPreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeriesPreviewController.swift; sourceTree = "<group>"; };
+		0F159C5B1E0AF8FE00085DBB /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = "../../Downloads/Swift/realm-swift-2.1.2/ios/swift-3.0.2/Realm.framework"; sourceTree = "<group>"; };
+		0F159C5C1E0AF8FE00085DBB /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "../../Downloads/Swift/realm-swift-2.1.2/ios/swift-3.0.2/RealmSwift.framework"; sourceTree = "<group>"; };
+		0F159C641E0B1FF100085DBB /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		0F198B9B1DF1E8E500184B81 /* SeriesSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeriesSearchTableViewCell.swift; sourceTree = "<group>"; };
 		0F198B9D1DF1F68300184B81 /* SeriesSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeriesSearch.swift; sourceTree = "<group>"; };
 		0F538B681DFC342E006F5DC6 /* SeriesRetrieve.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeriesRetrieve.swift; sourceTree = "<group>"; };
@@ -41,6 +67,7 @@
 		0F7DFE581DEE0484003F17AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0F7DFE5E1DEF3F88003F17AC /* Feed View Controller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Feed View Controller.swift"; sourceTree = "<group>"; };
 		0F7DFE601DEF4086003F17AC /* Search View Controller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Search View Controller.swift"; sourceTree = "<group>"; };
+		0F9841201E0ADE8700CFB299 /* RealmHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 		1D4D1DFF0C5B6E221788F249 /* Pods_ToDoTV.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDoTV.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29352D8E6E7084A353C8E98A /* Pods-ToDoTV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoTV.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ToDoTV/Pods-ToDoTV.debug.xcconfig"; sourceTree = "<group>"; };
 		F9F5A409C5AA99D5EA6B5FA1 /* Pods-ToDoTV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoTV.release.xcconfig"; path = "Pods/Target Support Files/Pods-ToDoTV/Pods-ToDoTV.release.xcconfig"; sourceTree = "<group>"; };
@@ -51,7 +78,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F159C5F1E0AFC2100085DBB /* Realm.framework in Frameworks */,
+				0F159C611E0AFC2100085DBB /* RealmSwift.framework in Frameworks */,
+				0F159C5D1E0AF8FE00085DBB /* Realm.framework in Frameworks */,
 				F6437DC4DDDB25EB4BDACBB7 /* Pods_ToDoTV.framework in Frameworks */,
+				0F159C5E1E0AF8FE00085DBB /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,11 +131,13 @@
 		0F7DFE481DEE0483003F17AC /* ToDoTV */ = {
 			isa = PBXGroup;
 			children = (
+				0F7DFE491DEE0484003F17AC /* AppDelegate.swift */,
 				0F538B671DFC33EC006F5DC6 /* Show Series */,
 				0F076A1A1DF6D646004F8403 /* Search */,
-				0F7DFE491DEE0484003F17AC /* AppDelegate.swift */,
+				0F98411F1E0ADE4F00CFB299 /* Helpers */,
 				0F7DFE4B1DEE0484003F17AC /* My List ViewController.swift */,
 				0F7DFE5E1DEF3F88003F17AC /* Feed View Controller.swift */,
+				0F159C641E0B1FF100085DBB /* Reachability.swift */,
 				0F7DFE531DEE0484003F17AC /* Assets.xcassets */,
 				0F076A171DF5CBD9004F8403 /* Main.storyboard */,
 				0F7DFE551DEE0484003F17AC /* LaunchScreen.storyboard */,
@@ -114,9 +147,19 @@
 			path = ToDoTV;
 			sourceTree = "<group>";
 		};
+		0F98411F1E0ADE4F00CFB299 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				0F9841201E0ADE8700CFB299 /* RealmHelper.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
 		333BC28E13E0BE392F8EEED8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0F159C5B1E0AF8FE00085DBB /* Realm.framework */,
+				0F159C5C1E0AF8FE00085DBB /* RealmSwift.framework */,
 				1D4D1DFF0C5B6E221788F249 /* Pods_ToDoTV.framework */,
 			);
 			name = Frameworks;
@@ -144,6 +187,7 @@
 				0F7DFE441DEE0483003F17AC /* Resources */,
 				2968AA91C9BFF256F2CE8E70 /* [CP] Embed Pods Frameworks */,
 				94765113FDB07AB9D2FB119C /* [CP] Copy Pods Resources */,
+				0F159C631E0AFC2200085DBB /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -256,6 +300,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F7DFE4C1DEE0484003F17AC /* My List ViewController.swift in Sources */,
+				0F9841211E0ADE8700CFB299 /* RealmHelper.swift in Sources */,
 				0F538B6D1E0467B1006F5DC6 /* SeriesCastTableViewCell.swift in Sources */,
 				0F198B9E1DF1F68400184B81 /* SeriesSearch.swift in Sources */,
 				0F7DFE5F1DEF3F88003F17AC /* Feed View Controller.swift in Sources */,
@@ -266,6 +311,7 @@
 				0F538B6B1E045F22006F5DC6 /* Series Cast.swift in Sources */,
 				0F7DFE521DEE0484003F17AC /* ToDoTV.xcdatamodeld in Sources */,
 				0F7DFE4A1DEE0484003F17AC /* AppDelegate.swift in Sources */,
+				0F159C651E0B1FF100085DBB /* Reachability.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,6 +439,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = S2P9NVQ9V8;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = ToDoTV/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.abdalrahim.ToDoTV;
@@ -408,6 +459,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = S2P9NVQ9V8;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = ToDoTV/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.abdalrahim.ToDoTV;

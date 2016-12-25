@@ -6,6 +6,7 @@
 //  Copyright © 2016 Abdalrahim. All rights reserved.
 //
 
+import CoreData
 import UIKit
 import SwiftyJSON
 import Alamofire
@@ -30,8 +31,11 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
     
     @IBOutlet weak var status: UILabel!
     
+    @IBOutlet weak var runTime: UILabel!
+    
     var cast: [SeriesCast] = []
     var actorImage: [UIImage] = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +48,7 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
     override func viewDidAppear(_ animated: Bool) {
         API()
         castAPI()
+    
     }
     
     override func didReceiveMemoryWarning() {
@@ -61,6 +66,7 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
                     let json = JSON(value)
                     let retrieve = SeriesRetrieve(json: json)
                     
+                    
                     self.seriesSummary.text! = retrieve.summary.replacingOccurrences(of: "<p>", with: "")
                     self.seriesSummary.text! = self.seriesSummary.text!.replacingOccurrences(of: "</p>", with: "")
                     self.seriesSummary.text! = self.seriesSummary.text!.replacingOccurrences(of: "<strong>", with: "")
@@ -74,6 +80,8 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
                         self.rating.text! = String(format: "%.1f",retrieve.rating)
                     }
                     
+                    self.runTime.text! = "\(retrieve.runTime) mins"
+                    
                     if retrieve.status == "Running" {
                         if retrieve.day.count == 1 {
                             self.status.text! = "\(retrieve.status) | \(retrieve.day.first!) @ \(retrieve.time) | \(retrieve.network)"
@@ -85,6 +93,7 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
                     } else {
                         self.status.text! = "\(retrieve.status) | \(retrieve.network)"
                     }
+                    
                     
                     let url = URL(string: retrieve.posterImageView)
                     
@@ -165,6 +174,13 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
                             }
                         }
                     }
+                    if self.cast.count == 0 {
+                        self.tableView.alpha = 0
+                        
+                    }
+                    else {
+                        self.tableView.alpha = 1
+                    }
                     
                     self.tableView.reloadData()
                     
@@ -203,6 +219,8 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SeriesCastTableViewCell
         
         cell.actorName.text! = cast[indexPath.row].name
+        
+        cell.role.text! = "as \(cast[indexPath.row].role)"
         
         cell.actorImage.image = actorImage[indexPath.row]
         

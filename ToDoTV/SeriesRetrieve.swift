@@ -15,6 +15,7 @@ struct SeriesRetrieve {
     let year: String
     let rating: Double
     let time: String
+    let runTime: String
     let day: Array<Any>
     let status: String
     let summary: String
@@ -28,6 +29,7 @@ struct SeriesRetrieve {
         self.year = json["premiered"].stringValue
         self.rating = json["rating"]["average"].doubleValue
         self.time = json["schedule"]["time"].stringValue
+        self.runTime = json["runtime"].stringValue
         self.day = json["schedule"]["days"].arrayValue
         self.status = json["status"].stringValue
         self.summary = json["summary"].stringValue

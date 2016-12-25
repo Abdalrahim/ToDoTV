@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         UIApplication.shared.statusBarStyle = .lightContent
         ( window?.rootViewController as! UITabBarController ).tabBar.tintColor = UIColor.red
+        let localNotification = UILocalNotification()
+        //localNotification.fireDate =
         return true
     }
 

@@ -19,11 +19,9 @@ class FeedViewController: UIViewController {
         super.viewDidLoad()
         var dateComp = DateComponents()
         
-        dateComp.minute = 00
-        dateComp.timeZone = TimeZone(lo: "Asia/Dubai")
-        var timeZ = TimeZone.current.identifier
-        print(timeZ)
-        dateComp.hour = 19
+        dateComp.minute = 30
+        dateComp.timeZone = TimeZone(abbreviation: "GMT+8")
+        dateComp.hour = 18
         dateComp.day = 03
         dateComp.month = 01
         dateComp.year = 2017

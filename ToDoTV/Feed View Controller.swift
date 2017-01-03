@@ -20,7 +20,7 @@ class FeedViewController: UIViewController {
         var dateComp = DateComponents()
         
         dateComp.minute = 00
-        dateComp.timeZone = TimeZone(lo: "Asia/Dubai")
+//        dateComp.timeZone = TimeZone(lo: "Asia/Dubai")
         var timeZ = TimeZone.current.identifier
         print(timeZ)
         dateComp.hour = 19

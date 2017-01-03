@@ -192,7 +192,10 @@
                                                             <constraint firstAttribute="height" constant="32" id="0pH-7F-XyH"/>
                                                             <constraint firstAttribute="width" constant="32" id="MVL-72-z7e"/>
                                                         </constraints>
-                                                        <state key="normal" image="add"/>
+                                                        <state key="normal" image="added"/>
+                                                        <connections>
+                                                            <action selector="addSeriesAction:" destination="vwZ-Rq-Vhq" eventType="touchUpInside" id="nac-Zg-fBn"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2gY-s2-FeH">
                                                         <rect key="frame" x="182" y="0.0" width="32" height="32"/>
@@ -341,6 +344,11 @@
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" red="0.094105310740000003" green="0.094125516709999996" blue="0.094100885090000003" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                             </tableViewCell>
+                                            <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Yi2-pd-FFB">
+                                                <rect key="frame" x="177" y="215" width="20" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="color" red="1" green="0.018721711901257154" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -373,6 +381,8 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="1307"/>
                     <connections>
+                        <outlet property="addSeries" destination="lVa-kP-ec0" id="YYI-is-ypm"/>
+                        <outlet property="loading" destination="Yi2-pd-FFB" id="X4F-At-FP4"/>
                         <outlet property="poster" destination="05q-pL-1GO" id="Sye-HI-KzB"/>
                         <outlet property="rating" destination="7dr-Yy-y6n" id="Lye-aI-qHH"/>
                         <outlet property="runTime" destination="5Ne-V3-YZR" id="P0h-In-Wex"/>
@@ -430,7 +440,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="add" width="128" height="128"/>
+        <image name="added" width="32" height="32"/>
         <image name="checklist" width="24" height="24"/>
         <image name="share" width="128" height="128"/>
         <image name="star" width="24" height="24"/>

@@ -20,7 +20,11 @@ struct SeriesRetrieve {
     let status: String
     let summary: String
     let network: String
+    let link: String
+    let nextEpisode: String
+    let previousEpisode: String
     let posterImageView: String
+    let lightposter : String
     
     init(json: JSON) {
         self.id = json["id"].stringValue
@@ -34,6 +38,10 @@ struct SeriesRetrieve {
         self.status = json["status"].stringValue
         self.summary = json["summary"].stringValue
         self.network = json["network"]["name"].stringValue
+        self.link = json["_links"]["self"]["href"].stringValue
+        self.nextEpisode = json["_links"]["previousepisode"]["href"].stringValue
+        self.previousEpisode = json["_links"]["nextepisode"]["href"].stringValue
         self.posterImageView = json["image"]["original"].stringValue
+        self.lightposter = json["image"]["medium"].stringValue
     }
 }

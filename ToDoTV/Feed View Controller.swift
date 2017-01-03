@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 import SwiftyJSON
 import Alamofire
 import AlamofireImage
@@ -16,6 +17,24 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        var dateComp = DateComponents()
+        dateComp.minute = 21
+        dateComp.hour = 16
+        dateComp.day = 03
+        dateComp.month = 01
+        dateComp.year = 2017
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Sup"
+        content.subtitle = "lel"
+        content.body = "wut do yu think?"
+        content.badge = 1
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComp, repeats: true)
+        let request = UNNotificationRequest(identifier: "Quiz", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: {
+            error in
+        })
         // Do any additional setup after loading the view, typically from a nib.
     }
     

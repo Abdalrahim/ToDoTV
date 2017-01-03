@@ -17,6 +17,8 @@ struct SeriesSearch {
     let status: String
     let network: String
     let posterImageView: String
+    let previousepisode: String
+    let nextepisode: String
     
     init(json: JSON) {
         self.title = json["show"]["name"].stringValue
@@ -26,5 +28,8 @@ struct SeriesSearch {
         self.status = json["show"]["status"].stringValue
         self.network = json["show"]["network"]["name"].stringValue
         self.posterImageView = json["show"]["image"]["medium"].stringValue
+        self.previousepisode = json["show"]["_links"]["previousepisode"]["href"].stringValue
+        self.nextepisode = json["show"]["_links"]["nextepisode"]["href"].stringValue
+        
     }
 }

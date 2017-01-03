@@ -7,17 +7,31 @@
 //
 
 import CoreData
+import UserNotifications
 import UIKit
 import SwiftyJSON
 import Alamofire
 import AlamofireImage
 import AlamofireNetworkActivityIndicator
 
-class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var link: String = ""
     
     var id: String = ""
+    
+    var nxtEp: String = ""
+    
+    var nxtEpDateYear: String = ""
+    var nxtEpDateMonth: String = ""
+    var nxtEpDateDay: String = ""
+    
+    var nxtEpTimeHour: String = ""
+    var nxtEpTimeMinute: String = ""
+    
+    var sTitle: String = ""
+    
+    var lightImage: Image = #imageLiteral(resourceName: "time")
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -33,9 +47,18 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
     
     @IBOutlet weak var runTime: UILabel!
     
+    @IBOutlet weak var addSeries: UIButton!
+    
+    @IBOutlet weak var loading: UIActivityIndicatorView!
+    
+    @IBAction func addSeriesAction(_ sender: Any) {
+        self.addToWatching()
+    }
+    
+    
+    
     var cast: [SeriesCast] = []
     var actorImage: [UIImage] = []
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,8 +69,10 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        addSeries.imageView?.image! = #imageLiteral(resourceName: "add")
         API()
         castAPI()
+        nextEpDate()
     
     }
     
@@ -55,7 +80,56 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
         super.didReceiveMemoryWarning()
     }
     
+    func addToWatching() {
+        let series = Series()
+        
+        series.id = self.id
+        series.title = self.sTitle
+        series.nextEpDateYear = self.nxtEpDateYear
+        series.nextEpDateMonth = self.nxtEpDateMonth
+        series.nextEpDateDay = self.nxtEpDateDay
+        series.nextEpTimeHour = self.nxtEpTimeHour
+        series.nextEpTimeMinute = self.nxtEpTimeMinute
+        series.nextEpLink = self.nxtEp
+        series.link = self.link
+        
+        let imageData = UIImagePNGRepresentation(self.lightImage)
+        let base64String = imageData?.base64EncodedString(options: .init(rawValue: .allZeros))
+        
+        series.image = base64String!
+        
+        if RealmHelper.check(series: series) == true {
+            addSeries.imageView?.image! = #imageLiteral(resourceName: "added")
+        }
+        else {
+            RealmHelper.addSeries(series: series)
+            addSeries.imageView?.image! = #imageLiteral(resourceName: "added")
+            //addedToFav.alpha = 1
+        }
+        
+    }
+    
+    func checkMovie() {
+        
+        let series = Series()
+        series.id = self.id
+        print("work")
+        
+        if RealmHelper.check(series: series) == true {
+            addSeries.imageView?.image! = #imageLiteral(resourceName: "added")
+            print("tru")
+        }
+            
+        else {
+            addSeries.imageView?.image! = #imageLiteral(resourceName: "add")
+            print("false")
+        }
+        
+    }
+    
     func API() {
+        loading.isHidden = false
+        loading.startAnimating()
         
         let urlString = "\(self.link)"
         Alamofire.request(urlString, method: .get, encoding: JSONEncoding.default, headers: [:]).validate().responseJSON() { response in
@@ -65,7 +139,6 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
                     
                     let json = JSON(value)
                     let retrieve = SeriesRetrieve(json: json)
-                    
                     
                     self.seriesSummary.text! = retrieve.summary.replacingOccurrences(of: "<p>", with: "")
                     self.seriesSummary.text! = self.seriesSummary.text!.replacingOccurrences(of: "</p>", with: "")
@@ -79,6 +152,12 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
                     } else {
                         self.rating.text! = String(format: "%.1f",retrieve.rating)
                     }
+                    
+                    self.sTitle = retrieve.title
+                    self.id = retrieve.id
+                    
+                    //check
+                    self.checkMovie()
                     
                     self.runTime.text! = "\(retrieve.runTime) mins"
                     
@@ -96,13 +175,16 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
                     
                     
                     let url = URL(string: retrieve.posterImageView)
+                    let url2 = URL(string: retrieve.lightposter)
                     
                     if url == nil {
                         self.poster.image = #imageLiteral(resourceName: "Untitled")
+                        self.lightImage = #imageLiteral(resourceName: "Untitled")
                     } else {
                         DispatchQueue.global().async {
                             
                             let data = try? Data(contentsOf: url!)
+                            let data2 = try? Data(contentsOf: url2!)
                             
                             if data == nil {
                                 
@@ -111,6 +193,16 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
                                 
                                 DispatchQueue.main.async {
                                     self.poster.image = UIImage(data: data!)
+                                }
+                            }
+                            
+                            if data2 == nil {
+                                
+                            }
+                            else {
+                                
+                                DispatchQueue.main.async {
+                                    self.lightImage = UIImage(data: data2!)!
                                 }
                             }
                         }
@@ -184,6 +276,72 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
                     
                     self.tableView.reloadData()
                     
+                }
+                
+                self.loading.isHidden = true
+                self.loading.stopAnimating()
+                
+            case .failure(let error):
+                print(error)
+                
+            }
+        }
+    }
+    
+    func nextEpDate() {
+        print(self.nxtEp)
+        let urlString = "\(self.nxtEp)"
+        Alamofire.request(urlString, method: .get, encoding: JSONEncoding.default, headers: [:]).validate().responseJSON() { response in
+            switch response.result {
+            case .success( _):
+                let urlString = "\(self.nxtEp)"
+                Alamofire.request(urlString, method: .get, encoding: JSONEncoding.default, headers: [:]).validate().responseJSON() { response in
+                    switch response.result {
+                    case .success( _):
+                        if let value = response.result.value {
+                            
+                            let json = JSON(value)
+                            
+                            let retrieve = NextEpisodeDate(json: json)
+                            
+                            
+                            let startIndexYear = retrieve.airdate.index(retrieve.airdate.startIndex, offsetBy: 0)
+                            let endIndexYear = retrieve.airdate.index(retrieve.airdate.startIndex, offsetBy: 3)
+                            
+                            let startIndexMonth = retrieve.airdate.index(retrieve.airdate.startIndex, offsetBy: 5)
+                            let endIndexMonth = retrieve.airdate.index(retrieve.airdate.startIndex, offsetBy: 6)
+                            
+                            let startIndexDay = retrieve.airdate.index(retrieve.airdate.startIndex, offsetBy: 8)
+                            let endIndexDay = retrieve.airdate.index(retrieve.airdate.startIndex, offsetBy: 9)
+                            
+                            let startIndexHour = retrieve.airtime.index(retrieve.airtime.startIndex, offsetBy: 0)
+                            let endIndexHour = retrieve.airtime.index(retrieve.airtime.startIndex, offsetBy: 1)
+                            
+                            let startIndexMin = retrieve.airtime.index(retrieve.airtime.startIndex, offsetBy: 3)
+                            let endIndexMin = retrieve.airtime.index(retrieve.airtime.startIndex, offsetBy: 4)
+                            
+                            
+                            self.nxtEpDateYear = retrieve.airdate[startIndexYear...endIndexYear]
+                            self.nxtEpDateMonth = retrieve.airdate[startIndexMonth...endIndexMonth]
+                            self.nxtEpDateDay = retrieve.airdate[startIndexDay...endIndexDay]
+                            
+                            self.nxtEpTimeHour = retrieve.airtime[startIndexHour...endIndexHour]
+                            self.nxtEpTimeMinute = retrieve.airtime[startIndexMin...endIndexMin]
+                            
+                            
+                            
+                            print("\(self.nxtEpDateYear) \(self.nxtEpDateMonth) \(self.nxtEpDateDay) \(self.nxtEpTimeHour) \(self.nxtEpTimeMinute)")
+                            
+                            
+                            
+                            
+                        }
+                        
+                        
+                    case .failure(let error):
+                        print(error)
+                        
+                    }
                 }
             case .failure(let error):
                 print(error)

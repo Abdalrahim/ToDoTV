@@ -152,12 +152,13 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 // 2
                 let show = aseries[indexPath.row].link
                 let id = aseries[indexPath.row].id
+                let nextEp = aseries[indexPath.row].nextepisode
                 // 3
                 let seriesPreviewController = segue.destination as! SeriesPreviewController
                 // 4
                 seriesPreviewController.link = show
                 seriesPreviewController.id = id
-                
+                seriesPreviewController.nxtEp = nextEp
             }
         }
     }

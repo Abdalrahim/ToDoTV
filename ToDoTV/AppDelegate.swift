@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 import CoreData
 
 @UIApplicationMain
@@ -19,7 +20,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         UIApplication.shared.statusBarStyle = .lightContent
         ( window?.rootViewController as! UITabBarController ).tabBar.tintColor = UIColor.red
-        let localNotification = UILocalNotification()
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound], completionHandler:
+            { granted, Error in
+            //handle error
+                if granted {
+                    
+                }
+        })
+        
+        
+        
+        
+        //let notificationSettings = UIUserNotificationSettings(forTypes: [.badge, .alert, .sound], Category: nil)
+        //UIApplication.shared.registerUserNotificationSettings(notificationSettings)
+        
         //localNotification.fireDate =
         return true
     }

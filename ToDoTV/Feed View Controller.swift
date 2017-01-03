@@ -18,14 +18,18 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         var dateComp = DateComponents()
-        dateComp.minute = 21
-        dateComp.hour = 16
+        
+        dateComp.minute = 00
+        dateComp.timeZone = TimeZone(lo: "Asia/Dubai")
+        var timeZ = TimeZone.current.identifier
+        print(timeZ)
+        dateComp.hour = 19
         dateComp.day = 03
         dateComp.month = 01
         dateComp.year = 2017
         
         let content = UNMutableNotificationContent()
-        content.title = "Sup"
+        content.title = "Singapore"
         content.subtitle = "lel"
         content.body = "wut do yu think?"
         content.badge = 1

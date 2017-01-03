@@ -7,6 +7,7 @@
 //
 
 import RealmSwift
+import UserNotifications
 import UIKit
 
 class Series : Object {
@@ -36,6 +37,34 @@ class RealmHelper {
         try! realm.write() {
             realm.delete(series)
         }
+    }
+    
+    static func run() {
+        let realm = try! Realm()
+        for i in realm.objects(Series.self) {
+            var dateComp = DateComponents()
+            
+            dateComp.minute = Int(i.nextEpTimeMinute)
+            dateComp.timeZone = NSTimeZone(name: "SST") as TimeZone?
+            dateComp.hour = Int(i.nextEpTimeHour)
+            dateComp.day = Int(i.nextEpDateDay)
+            dateComp.month = Int(i.nextEpDateMonth)
+            dateComp.year = Int(i.nextEpDateYear)
+            
+            let content = UNMutableNotificationContent()
+            content.title = "Sup"
+            content.subtitle = "lel"
+            content.body = "wut do yu think?"
+            content.badge = 1
+            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComp, repeats: true)
+            let request = UNNotificationRequest(identifier: "Quiz", content: content, trigger: trigger)
+            
+            UNUserNotificationCenter.current().add(request, withCompletionHandler: {
+                error in
+            })
+            
+        }
+        print(realm.objects(Series.self))
     }
     
 //    static func updateNextEpisode(nextEP: Series,newEp: Series) {

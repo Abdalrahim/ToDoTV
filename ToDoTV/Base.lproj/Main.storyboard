@@ -120,7 +120,6 @@
                                             <outlet property="posterImage" destination="QzP-pF-DtN" id="BD5-cD-s5A"/>
                                             <outlet property="seriesName" destination="eMC-2o-ZV9" id="Nvi-6X-1pu"/>
                                             <outlet property="status" destination="QW7-tt-Pbz" id="Gq5-tQ-X0s"/>
-                                            <segue destination="vwZ-Rq-Vhq" kind="show" identifier="showSeries" id="93R-hw-RbG"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -138,6 +137,7 @@
                         <outlet property="resultTable" destination="yg0-sL-nhH" id="z4a-6N-9l5"/>
                         <outlet property="searchTV" destination="Qi6-4q-4wO" id="QUC-yJ-UG6"/>
                         <outlet property="view" destination="BSx-7f-eGJ" id="Y88-7U-i9b"/>
+                        <segue destination="vwZ-Rq-Vhq" kind="show" identifier="showSeries" id="81E-sD-v0U"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mV0-hf-Ht3" userLabel="First Responder" sceneMemberID="firstResponder"/>

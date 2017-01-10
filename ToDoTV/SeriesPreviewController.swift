@@ -294,54 +294,40 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
         Alamofire.request(urlString, method: .get, encoding: JSONEncoding.default, headers: [:]).validate().responseJSON() { response in
             switch response.result {
             case .success( _):
-                let urlString = "\(self.nxtEp)"
-                Alamofire.request(urlString, method: .get, encoding: JSONEncoding.default, headers: [:]).validate().responseJSON() { response in
-                    switch response.result {
-                    case .success( _):
-                        if let value = response.result.value {
-                            
-                            let json = JSON(value)
-                            
-                            let retrieve = NextEpisodeDate(json: json)
-                            
-                            
-                            let startIndexYear = retrieve.airdate.index(retrieve.airdate.startIndex, offsetBy: 0)
-                            let endIndexYear = retrieve.airdate.index(retrieve.airdate.startIndex, offsetBy: 3)
-                            
-                            let startIndexMonth = retrieve.airdate.index(retrieve.airdate.startIndex, offsetBy: 5)
-                            let endIndexMonth = retrieve.airdate.index(retrieve.airdate.startIndex, offsetBy: 6)
-                            
-                            let startIndexDay = retrieve.airdate.index(retrieve.airdate.startIndex, offsetBy: 8)
-                            let endIndexDay = retrieve.airdate.index(retrieve.airdate.startIndex, offsetBy: 9)
-                            
-                            let startIndexHour = retrieve.airtime.index(retrieve.airtime.startIndex, offsetBy: 0)
-                            let endIndexHour = retrieve.airtime.index(retrieve.airtime.startIndex, offsetBy: 1)
-                            
-                            let startIndexMin = retrieve.airtime.index(retrieve.airtime.startIndex, offsetBy: 3)
-                            let endIndexMin = retrieve.airtime.index(retrieve.airtime.startIndex, offsetBy: 4)
-                            
-                            
-                            self.nxtEpDateYear = retrieve.airdate[startIndexYear...endIndexYear]
-                            self.nxtEpDateMonth = retrieve.airdate[startIndexMonth...endIndexMonth]
-                            self.nxtEpDateDay = retrieve.airdate[startIndexDay...endIndexDay]
-                            
-                            self.nxtEpTimeHour = retrieve.airtime[startIndexHour...endIndexHour]
-                            self.nxtEpTimeMinute = retrieve.airtime[startIndexMin...endIndexMin]
-                            
-                            
-                            
-                            print("\(self.nxtEpDateYear) \(self.nxtEpDateMonth) \(self.nxtEpDateDay) \(self.nxtEpTimeHour) \(self.nxtEpTimeMinute)")
-                            
-                            
-                            
-                            
-                        }
-                        
-                        
-                    case .failure(let error):
-                        print(error)
-                        
-                    }
+                if let value = response.result.value {
+                    
+                    let json = JSON(value)
+                    
+                    let retrieve = NextEpisodeDate(json: json)
+                    
+                    
+                    let startIndexYear = retrieve.airdate.index(retrieve.airdate.startIndex, offsetBy: 0)
+                    let endIndexYear = retrieve.airdate.index(retrieve.airdate.startIndex, offsetBy: 3)
+                    
+                    let startIndexMonth = retrieve.airdate.index(retrieve.airdate.startIndex, offsetBy: 5)
+                    let endIndexMonth = retrieve.airdate.index(retrieve.airdate.startIndex, offsetBy: 6)
+                    
+                    let startIndexDay = retrieve.airdate.index(retrieve.airdate.startIndex, offsetBy: 8)
+                    let endIndexDay = retrieve.airdate.index(retrieve.airdate.startIndex, offsetBy: 9)
+                    
+                    let startIndexHour = retrieve.airtime.index(retrieve.airtime.startIndex, offsetBy: 0)
+                    let endIndexHour = retrieve.airtime.index(retrieve.airtime.startIndex, offsetBy: 1)
+                    
+                    let startIndexMin = retrieve.airtime.index(retrieve.airtime.startIndex, offsetBy: 3)
+                    let endIndexMin = retrieve.airtime.index(retrieve.airtime.startIndex, offsetBy: 4)
+                    
+                    
+                    self.nxtEpDateYear = retrieve.airdate[startIndexYear...endIndexYear]
+                    self.nxtEpDateMonth = retrieve.airdate[startIndexMonth...endIndexMonth]
+                    self.nxtEpDateDay = retrieve.airdate[startIndexDay...endIndexDay]
+                    
+                    self.nxtEpTimeHour = retrieve.airtime[startIndexHour...endIndexHour]
+                    self.nxtEpTimeMinute = retrieve.airtime[startIndexMin...endIndexMin]
+                    
+                    
+                    
+                    print("\(self.nxtEpDateYear) \(self.nxtEpDateMonth) \(self.nxtEpDateDay) \(self.nxtEpTimeHour) \(self.nxtEpTimeMinute)")
+                    
                 }
             case .failure(let error):
                 print(error)

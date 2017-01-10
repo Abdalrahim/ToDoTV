@@ -8,17 +8,66 @@
 
 import UIKit
 
-class MyListViewController: UIViewController {
+class MyListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var tableview: UITableView!
+    
+    var series = RealmHelper.retrieveSeries()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        tableview.delegate = self
+        tableview.dataSource = self
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        series = RealmHelper.retrieveSeries()
+        tableview.reloadData()
+        
+    }
+    
+    @nonobjc func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.delete {
+            RealmHelper.deleteSeries(series: series[indexPath.row])
+            tableView.reloadData()
+            
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return series.count
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SavedSeriesViewCell
+        // Configure the cell...
+        
+        cell.seriesTitle.text = series[indexPath.row].title
+        if series[indexPath.row].nextEpDateDay.characters.count == 0 {
+            cell.nextEp.text = ""
+        }
+        else {
+            cell.nextEp.text = "next episode at \(series[indexPath.row].nextEpDateYear)/\(series[indexPath.row].nextEpDateMonth)/\(series[indexPath.row].nextEpDateDay)"
+        }
+        
+        //decoding a string to image
+        let decodedData = NSData(base64Encoded: series[indexPath.row].image, options: NSData.Base64DecodingOptions(rawValue: 0) )
+        
+        let decodedImage = UIImage(data: decodedData! as Data)
+        
+        cell.posterImage.image = decodedImage!
+        
+        return cell
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
 
 }

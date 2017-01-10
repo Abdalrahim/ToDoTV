@@ -17,24 +17,19 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let calendar = Calendar.current
-        
-        var dateComp:DateComponents = DateComponents()
-        dateComp.day = 8
-        dateComp.month = 01
-        dateComp.year = 2017
-        dateComp.hour = 19
-        dateComp.minute = 24
-        dateComp.timeZone = TimeZone(abbreviation: "SGT")
-        let date: Date = calendar.date(from: dateComp)!
-        
-        print(date)
-        
-        
-        
+//        TimeZone.ReferenceType.default = TimeZone(identifier: "America/New_York")!
+//        let calendar = Calendar.current
+//        
+//        var dateComp:DateComponents = DateComponents()
+//        dateComp.day = 10
+//        dateComp.month = 01
+//        dateComp.year = 2017
+//        dateComp.hour = 4
+//        dateComp.minute = 22
+//        let date: Date = calendar.date(from: dateComp)!
+//        
+//        
 //        let localNotificationSilent = UILocalNotification()
-//
 //        localNotificationSilent.fireDate = date
 //        localNotificationSilent.timeZone = TimeZone.current
 //        localNotificationSilent.alertTitle = "A new episode of 'Game of Thrones' is out"
@@ -44,9 +39,9 @@ class FeedViewController: UIViewController {
 //        localNotificationSilent.applicationIconBadgeNumber = 1
 //        UIApplication.shared.scheduleLocalNotification(localNotificationSilent)
         
-//        TimeZone.ReferenceType.default = TimeZone.current
+//        TimeZone.ReferenceType.default = TimeZone(identifier: "Africa/Cairo")!
 //        let formatter = DateFormatter()
-//        formatter.timeZone = TimeZone.ReferenceType.default
+//        formatter.timeZone = TimeZone(abbreviation: "GMT")
 //        formatter.dateFormat = "yyyy-MM-dd HH:mm"
 //        let strDate = formatter.string(from: Date())
 //        print(strDate)
@@ -56,34 +51,36 @@ class FeedViewController: UIViewController {
 //        var thursday5pm18thWeek2017TokyoDateComponents = DateComponents()
 //        thursday5pm18thWeek2017TokyoDateComponents.year = 2017
 //        thursday5pm18thWeek2017TokyoDateComponents.month = 1
-//        thursday5pm18thWeek2017TokyoDateComponents.day = 8
-//        thursday5pm18thWeek2017TokyoDateComponents.hour = 22
-//        thursday5pm18thWeek2017TokyoDateComponents.timeZone = TimeZone.current
-//        
+//        thursday5pm18thWeek2017TokyoDateComponents.day = 10
+//        thursday5pm18thWeek2017TokyoDateComponents.hour = 11
+//        thursday5pm18thWeek2017TokyoDateComponents.timeZone = TimeZone(identifier: "Africa/Cairo")
+//
 //        let thursday5pm18thWeek2017TokyoDate = userCalendar.date(from: thursday5pm18thWeek2017TokyoDateComponents)!
 //        print(thursday5pm18thWeek2017TokyoDate)
-        
-        
-//        NSTimeZone.default = TimeZone.current
-//        var dateComp = DateComponents()
-//        dateComp.timeZone = TimeZone.current
-//        dateComp.day = 8
-//        dateComp.month = 01
-//        dateComp.year = 2017
-//        dateComp.hour = 20
-//        dateComp.minute = 55
 //        
-//        let content = UNMutableNotificationContent()
-//        content.title = "Uplifting Notification"
-//        content.subtitle = "this is a notification to wish you to.."
-//        content.body = ".. have a nice day/evening"
-//        content.badge = 1
-//        content.sound = UNNotificationSound.default()
-//        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComp, repeats: true)
-//        let request = UNNotificationRequest(identifier: "Quiz", content: content, trigger: trigger)
-//        UNUserNotificationCenter.current().add(request, withCompletionHandler: {
-//            error in
-//        })
+        var dateComp = DateComponents()
+        dateComp.timeZone = TimeZone(identifier: "America/New_York")
+        dateComp.day = 10
+        dateComp.month = 01
+        dateComp.year = 2017
+        dateComp.hour = 4
+        dateComp.minute = 36
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Uplifting Notification"
+        content.subtitle = "this is a notification to wish you to.."
+        content.body = ".. have a nice day/evening"
+        content.badge = 1
+        content.sound = UNNotificationSound.default()
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComp, repeats: true)
+        let request = UNNotificationRequest(identifier: "Quiz", content: content, trigger: trigger)
+        print(request)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: {
+            error in
+        })
+        UpdateNextEpisodeLink.updateLink()
+        UpdateEpisodes.updatedEp()
+        RealmHelper.notify()
         
         // Do any additional setup after loading the view, typically from a nib.
         UpdateEpisodes.updatedEp()

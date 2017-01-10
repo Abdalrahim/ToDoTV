@@ -30,6 +30,7 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
     var nxtEpTimeMinute: String = ""
     
     var sTitle: String = ""
+    var navigationTitle: String = ""
     
     var lightImage: Image = #imageLiteral(resourceName: "time")
     
@@ -63,6 +64,9 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController!.navigationBar.topItem!.title = ""
+        API()
+        castAPI()
+        nextEpDate()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableHeaderView?.backgroundColor = UIColor.red
@@ -70,9 +74,10 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
     
     override func viewDidAppear(_ animated: Bool) {
         addSeries.imageView?.image! = #imageLiteral(resourceName: "add")
-        API()
-        castAPI()
-        nextEpDate()
+        self.navigationItem.title = self.navigationTitle
+//        API()
+//        castAPI()
+//        nextEpDate()
     
     }
     
@@ -113,16 +118,13 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
         
         let series = Series()
         series.id = self.id
-        print("work")
         
         if RealmHelper.check(series: series) == true {
             addSeries.imageView?.image! = #imageLiteral(resourceName: "added")
-            print("tru")
         }
             
         else {
             addSeries.imageView?.image! = #imageLiteral(resourceName: "add")
-            print("false")
         }
         
     }
@@ -152,7 +154,6 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
                     } else {
                         self.rating.text! = String(format: "%.1f",retrieve.rating)
                     }
-                    
                     self.sTitle = retrieve.title
                     self.id = retrieve.id
                     
@@ -208,7 +209,7 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
                         }
                     }
                     
-                    self.navigationItem.title = retrieve.title
+                    
                     
                     self.seriesDetails.reloadInputViews()
                     
@@ -289,7 +290,6 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func nextEpDate() {
-        print(self.nxtEp)
         let urlString = "\(self.nxtEp)"
         Alamofire.request(urlString, method: .get, encoding: JSONEncoding.default, headers: [:]).validate().responseJSON() { response in
             switch response.result {
@@ -323,10 +323,6 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
                     
                     self.nxtEpTimeHour = retrieve.airtime[startIndexHour...endIndexHour]
                     self.nxtEpTimeMinute = retrieve.airtime[startIndexMin...endIndexMin]
-                    
-                    
-                    
-                    print("\(self.nxtEpDateYear) \(self.nxtEpDateMonth) \(self.nxtEpDateDay) \(self.nxtEpTimeHour) \(self.nxtEpTimeMinute)")
                     
                 }
             case .failure(let error):

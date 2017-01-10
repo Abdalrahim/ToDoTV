@@ -15,6 +15,7 @@ class Series : Object {
     dynamic var title = "title"
     dynamic var image = "String -> Image"
     dynamic var link = "link"
+    dynamic var timezone = "timezone"
     dynamic var nextEpLink = "link"
     dynamic var nextEpDateYear = "2000"
     dynamic var nextEpDateMonth = "01"
@@ -45,8 +46,8 @@ class RealmHelper {
         for i in realm.objects(Series.self) {
             var dateComp = DateComponents()
             
+            dateComp.timeZone = TimeZone(identifier: "\(i.timezone)")
             dateComp.minute = Int(i.nextEpTimeMinute)
-            dateComp.timeZone = TimeZone.current
             dateComp.hour = Int(i.nextEpTimeHour)
             dateComp.day = Int(i.nextEpDateDay)
             dateComp.month = Int(i.nextEpDateMonth)

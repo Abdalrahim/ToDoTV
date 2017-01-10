@@ -27,9 +27,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         resultTable.alpha = 0
         
         searchTV.delegate = self
-        
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tap)
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -144,6 +141,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "showSeries", sender: nil)
         
@@ -158,12 +156,14 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 let show = aseries[indexPath.row].link
                 let id = aseries[indexPath.row].id
                 let nextEp = aseries[indexPath.row].nextepisode
+                let navigTitle = aseries[indexPath.row].title
                 // 3
                 let seriesPreviewController = segue.destination as! SeriesPreviewController
                 // 4
                 seriesPreviewController.link = show
                 seriesPreviewController.id = id
                 seriesPreviewController.nxtEp = nextEp
+                seriesPreviewController.navigationTitle = navigTitle
             }
         }
     }

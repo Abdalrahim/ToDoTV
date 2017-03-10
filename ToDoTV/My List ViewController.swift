@@ -15,6 +15,7 @@ class MyListViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var series = RealmHelper.retrieveSeries()
     
     override func viewDidLoad() {
+        self.navigationController!.navigationBar.topItem!.title = "My List"
         super.viewDidLoad()
         tableview.delegate = self
         tableview.dataSource = self
@@ -23,6 +24,8 @@ class MyListViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidAppear(_ animated: Bool) {
         series = RealmHelper.retrieveSeries()
+        UpdateNextEpisodeLink.updateLink()
+        UpdateEpisodes.updatedEp()
         tableview.reloadData()
         
     }
@@ -35,6 +38,7 @@ class MyListViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCellEditingStyle.delete {
             RealmHelper.deleteSeries(series: series[indexPath.row])
+            RealmHelper.notify()
             tableView.reloadData()
             
         }
@@ -66,6 +70,31 @@ class MyListViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.posterImage.image = decodedImage!
         
         return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "showSavedShow", sender: nil)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier {
+            if identifier == "showSavedShow" {
+                // 1
+                let indexPath = tableview.indexPathForSelectedRow!
+                // 2
+                let show = series[indexPath.row].link
+                let id = series[indexPath.row].id
+                let nextEp = series[indexPath.row].nextEpLink
+                let navigTitle = series[indexPath.row].title
+                // 3
+                let seriesPreviewController = segue.destination as! SeriesPreviewController
+                // 4
+                seriesPreviewController.link = show
+                seriesPreviewController.id = id
+                seriesPreviewController.nxtEp = nextEp
+                seriesPreviewController.navigationTitle = navigTitle
+            }
+        }
     }
 
 

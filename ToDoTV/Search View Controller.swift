@@ -17,6 +17,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var searchTV: UISearchBar!
     
     @IBOutlet weak var resultTable: UITableView!
+    @IBOutlet weak var tapToDismissView: UIView!
     
     var aseries: [SeriesSearch] = []
     
@@ -27,6 +28,9 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         resultTable.alpha = 0
         
         searchTV.delegate = self
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapToDismissView.addGestureRecognizer(tap)
         // Do any additional setup after loading the view, typically from a nib.
     }
     

@@ -119,6 +119,14 @@
 			name = "Show Series";
 			sourceTree = "<group>";
 		};
+		0F5C1F7F1E7033E4006A83D4 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				0F7DFE5E1DEF3F88003F17AC /* Feed View Controller.swift */,
+			);
+			name = Feed;
+			sourceTree = "<group>";
+		};
 		0F7DFE3D1DEE0483003F17AC = {
 			isa = PBXGroup;
 			children = (
@@ -141,11 +149,11 @@
 			isa = PBXGroup;
 			children = (
 				0F7DFE491DEE0484003F17AC /* AppDelegate.swift */,
+				0F5C1F7F1E7033E4006A83D4 /* Feed */,
 				0F538B671DFC33EC006F5DC6 /* Show Series */,
 				0F076A1A1DF6D646004F8403 /* Search */,
 				0F98411F1E0ADE4F00CFB299 /* Helpers */,
 				0FD232FF1E24E54600FC31E3 /* SavedShows */,
-				0F7DFE5E1DEF3F88003F17AC /* Feed View Controller.swift */,
 				0F7DFE531DEE0484003F17AC /* Assets.xcassets */,
 				0F076A171DF5CBD9004F8403 /* Main.storyboard */,
 				0F7DFE551DEE0484003F17AC /* LaunchScreen.storyboard */,

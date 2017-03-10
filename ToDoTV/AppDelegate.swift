@@ -19,11 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         UIApplication.shared.statusBarStyle = .lightContent
-        
         ( window?.rootViewController as! UITabBarController ).tabBar.tintColor = UIColor.red
-        
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound], completionHandler:
             { granted, Error in
+                
             //handle error
                 if granted {
                     

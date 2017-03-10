@@ -31,6 +31,7 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
     
     var sTitle: String = ""
     var navigationTitle: String = ""
+    var timezone: String = ""
     
     var lightImage: Image = #imageLiteral(resourceName: "time")
     
@@ -75,9 +76,6 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
     override func viewDidAppear(_ animated: Bool) {
         addSeries.imageView?.image! = #imageLiteral(resourceName: "add")
         self.navigationItem.title = self.navigationTitle
-//        API()
-//        castAPI()
-//        nextEpDate()
     
     }
     
@@ -97,6 +95,7 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
         series.nextEpTimeMinute = self.nxtEpTimeMinute
         series.nextEpLink = self.nxtEp
         series.link = self.link
+        series.timezone = self.timezone
         
         let imageData = UIImagePNGRepresentation(self.lightImage)
         let base64String = imageData?.base64EncodedString(options: .init(rawValue: .allZeros))
@@ -111,10 +110,11 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
             addSeries.imageView?.image! = #imageLiteral(resourceName: "added")
             //addedToFav.alpha = 1
         }
+        RealmHelper.notify()
         
     }
     
-    func checkMovie() {
+    func checkSeries() {
         
         let series = Series()
         series.id = self.id
@@ -156,23 +156,61 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
                     }
                     self.sTitle = retrieve.title
                     self.id = retrieve.id
+                    if retrieve.timeZone == "" {
+                        self.timezone = retrieve.timeZone2
+                    } else {
+                        self.timezone = retrieve.timeZone
+                    }
                     
                     //check
-                    self.checkMovie()
+                    self.checkSeries()
                     
                     self.runTime.text! = "\(retrieve.runTime) mins"
                     
-                    if retrieve.status == "Running" {
-                        if retrieve.day.count == 1 {
-                            self.status.text! = "\(retrieve.status) | \(retrieve.day.first!) @ \(retrieve.time) | \(retrieve.network)"
+                    if retrieve.network == "" {
+                        if retrieve.status == "Running" {
+                            
+                            if retrieve.day.count == 1 {
+                                if retrieve.time == "" {
+                                    self.status.text! = "\(retrieve.status) | \(retrieve.day.first!) | \(retrieve.webNet)"
+                                } else {
+                                    self.status.text! = "\(retrieve.status) | \(retrieve.day.first!) at \(retrieve.time) | \(retrieve.webNet)"
+                                }
+                            } else {
+                                if retrieve.time == "" {
+                                    self.status.text! = "\(retrieve.status) | Daily | \(retrieve.webNet)"
+                                } else {
+                                    self.status.text! = "\(retrieve.status) | Daily at \(retrieve.time) | \(retrieve.webNet)"
+                                }
+                            }
+                            
+                        } else {
+                            self.status.text! = "\(retrieve.status) | \(retrieve.webNet)"
                         }
-                        else {
-                            self.status.text! = "\(retrieve.status) | Daily @ \(retrieve.time) | \(retrieve.network)"
-                        }
-                    
                     } else {
-                        self.status.text! = "\(retrieve.status) | \(retrieve.network)"
+                        if retrieve.status == "Running" {
+                            
+                            if retrieve.day.count == 1 {
+                                if retrieve.time == "" {
+                                    self.status.text! = "\(retrieve.status) | \(retrieve.day.first!) | \(retrieve.network)"
+                                } else {
+                                    self.status.text! = "\(retrieve.status) | \(retrieve.day.first!) at \(retrieve.time) | \(retrieve.network)"
+                                }
+                            }
+                            else {
+                                if retrieve.time == "" {
+                                    self.status.text! = "\(retrieve.status) | Daily | \(retrieve.network)"
+                                } else {
+                                    self.status.text! = "\(retrieve.status) | Daily at \(retrieve.time) | \(retrieve.network)"
+                                }
+                            }
+                            
+                        } else {
+                            self.status.text! = "\(retrieve.status) | \(retrieve.network)"
+                        }
                     }
+                    
+                    
                     
                     
                     let url = URL(string: retrieve.posterImageView)
@@ -199,8 +237,7 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
                             
                             if data2 == nil {
                                 
-                            }
-                            else {
+                            } else {
                                 
                                 DispatchQueue.main.async {
                                     self.lightImage = UIImage(data: data2!)!
@@ -323,6 +360,7 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
                     
                     self.nxtEpTimeHour = retrieve.airtime[startIndexHour...endIndexHour]
                     self.nxtEpTimeMinute = retrieve.airtime[startIndexMin...endIndexMin]
+        
                     
                 }
             case .failure(let error):

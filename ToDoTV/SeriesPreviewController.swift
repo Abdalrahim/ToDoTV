@@ -55,9 +55,20 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
     
     @IBAction func addSeriesAction(_ sender: Any) {
         self.addToWatching()
+        addSeries.setImage(UIImage(named: "added"), for: UIControlState.normal)
     }
     
+    @IBOutlet weak var genres: UILabel!
     
+    @IBOutlet weak var nxtep: UILabel!
+    
+    @IBOutlet weak var nextEpInfo: UIButton!
+    
+    @IBAction func openNextEpLink(_ sender: Any) {
+        
+        performSegue(withIdentifier: "nextEpWeb", sender: link)
+        
+    }
     
     var cast: [SeriesCast] = []
     var actorImage: [UIImage] = []
@@ -74,13 +85,16 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        addSeries.imageView?.image! = #imageLiteral(resourceName: "add")
+        checkSeries()
         self.navigationItem.title = self.navigationTitle
     
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let secondVc = segue.destination as! ShowEpisodeLink
+        if segue.identifier == "nextEpWeb" {
+            secondVc.link = self.nxtEp.replacingOccurrences(of: "api", with: "www")
+        }
     }
     
     func addToWatching() {
@@ -120,11 +134,11 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
         series.id = self.id
         
         if RealmHelper.check(series: series) == true {
-            addSeries.imageView?.image! = #imageLiteral(resourceName: "added")
+            addSeries.setImage(UIImage(named: "added"), for: UIControlState.normal)
         }
             
         else {
-            addSeries.imageView?.image! = #imageLiteral(resourceName: "add")
+            addSeries.setImage(UIImage(named: "add"), for: UIControlState.normal)
         }
         
     }
@@ -161,6 +175,17 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
                     } else {
                         self.timezone = retrieve.timeZone
                     }
+                    let genres = "\(retrieve.genres)"
+                    
+                    if retrieve.genres.count == 0 {
+                        self.genres.text! = "Unavailable"
+                        
+                    } else {
+                        
+                        self.genres.text! = genres.replacingOccurrences(of: "[", with: "")
+                        self.genres.text! = self.genres.text!.replacingOccurrences(of: "]", with: "")
+                    }
+                    
                     
                     //check
                     self.checkSeries()
@@ -245,15 +270,10 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
                             }
                         }
                     }
-                    
-                    
-                    
                     self.seriesDetails.reloadInputViews()
-                    
                 }
             case .failure(let error):
                 print(error)
-                
             }
         }
     }
@@ -327,6 +347,11 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func nextEpDate() {
+        if self.nxtEp == "" {
+            self.nxtep.text! = "Unavailable"
+            self.nextEpInfo.alpha = 0
+        } else {
+            self.nextEpInfo.alpha = 1
         let urlString = "\(self.nxtEp)"
         Alamofire.request(urlString, method: .get, encoding: JSONEncoding.default, headers: [:]).validate().responseJSON() { response in
             switch response.result {
@@ -336,7 +361,6 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
                     let json = JSON(value)
                     
                     let retrieve = NextEpisodeDate(json: json)
-                    
                     
                     let startIndexYear = retrieve.airdate.index(retrieve.airdate.startIndex, offsetBy: 0)
                     let endIndexYear = retrieve.airdate.index(retrieve.airdate.startIndex, offsetBy: 3)
@@ -360,12 +384,16 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
                     
                     self.nxtEpTimeHour = retrieve.airtime[startIndexHour...endIndexHour]
                     self.nxtEpTimeMinute = retrieve.airtime[startIndexMin...endIndexMin]
-        
+                    
+                    
+                    self.nxtep.text! = "next episode at \(self.nxtEpDateYear)/\(self.nxtEpDateMonth)/\(self.nxtEpDateDay)"
+                    
                     
                 }
             case .failure(let error):
                 print(error)
                 
+            }
             }
         }
     }

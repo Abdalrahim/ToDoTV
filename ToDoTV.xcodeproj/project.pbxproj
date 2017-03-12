@@ -16,6 +16,7 @@
 		0F538B691DFC342E006F5DC6 /* SeriesRetrieve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F538B681DFC342E006F5DC6 /* SeriesRetrieve.swift */; };
 		0F538B6B1E045F22006F5DC6 /* Series Cast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F538B6A1E045F20006F5DC6 /* Series Cast.swift */; };
 		0F538B6D1E0467B1006F5DC6 /* SeriesCastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F538B6C1E0467B1006F5DC6 /* SeriesCastTableViewCell.swift */; };
+		0F5C1F811E75648D006A83D4 /* ShowEpisodeLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5C1F801E75648D006A83D4 /* ShowEpisodeLink.swift */; };
 		0F7DFE4A1DEE0484003F17AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7DFE491DEE0484003F17AC /* AppDelegate.swift */; };
 		0F7DFE4C1DEE0484003F17AC /* My List ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7DFE4B1DEE0484003F17AC /* My List ViewController.swift */; };
 		0F7DFE521DEE0484003F17AC /* ToDoTV.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F7DFE501DEE0484003F17AC /* ToDoTV.xcdatamodeld */; };
@@ -61,6 +62,7 @@
 		0F538B681DFC342E006F5DC6 /* SeriesRetrieve.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeriesRetrieve.swift; sourceTree = "<group>"; };
 		0F538B6A1E045F20006F5DC6 /* Series Cast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Series Cast.swift"; sourceTree = "<group>"; };
 		0F538B6C1E0467B1006F5DC6 /* SeriesCastTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeriesCastTableViewCell.swift; sourceTree = "<group>"; };
+		0F5C1F801E75648D006A83D4 /* ShowEpisodeLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowEpisodeLink.swift; sourceTree = "<group>"; };
 		0F7DFE461DEE0483003F17AC /* ToDoTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F7DFE491DEE0484003F17AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F7DFE4B1DEE0484003F17AC /* My List ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "My List ViewController.swift"; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				0F538B6A1E045F20006F5DC6 /* Series Cast.swift */,
 				0F538B681DFC342E006F5DC6 /* SeriesRetrieve.swift */,
 				0F159C661E14540900085DBB /* NextEpisodeDate.swift */,
+				0F5C1F801E75648D006A83D4 /* ShowEpisodeLink.swift */,
 			);
 			name = "Show Series";
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				0F9841211E0ADE8700CFB299 /* RealmHelper.swift in Sources */,
 				0FD232FC1E23AF4500FC31E3 /* UpdateEpisodes.swift in Sources */,
 				0F159C671E14540C00085DBB /* NextEpisodeDate.swift in Sources */,
+				0F5C1F811E75648D006A83D4 /* ShowEpisodeLink.swift in Sources */,
 				0F538B6D1E0467B1006F5DC6 /* SeriesCastTableViewCell.swift in Sources */,
 				0F198B9E1DF1F68400184B81 /* SeriesSearch.swift in Sources */,
 				0F7DFE5F1DEF3F88003F17AC /* Feed View Controller.swift in Sources */,

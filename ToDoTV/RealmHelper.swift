@@ -59,27 +59,29 @@ class RealmHelper {
                 if Int(i.nextEpTimeHour)! - timezoneConverter > 24 {
                     let time = Int(i.nextEpTimeHour)! - timezoneConverter - 24
                     dateComp.hour = time
+                    dateComp.day = Int(i.nextEpDateDay)! + 1
                 } else if Int(i.nextEpTimeHour)! - timezoneConverter < 0 {
                     let time = Int(i.nextEpTimeHour)! - timezoneConverter + 24
                     dateComp.hour = time
+                    dateComp.day = Int(i.nextEpDateDay)! - 1
                 } else {
                     dateComp.hour = Int(i.nextEpTimeHour)! - timezoneConverter
+                    dateComp.day = Int(i.nextEpDateDay)
                     
                 }
                 
-                dateComp.day = Int(i.nextEpDateDay)
                 dateComp.month = Int(i.nextEpDateMonth)
                 dateComp.year = Int(i.nextEpDateYear)
                 
                 let content = UNMutableNotificationContent()
                 content.title = "A new Episode of \(i.title) is out now"
-                content.subtitle = "this is a notification to wish you to.."
-                content.body = ".. have a nice day/evening"
+//                content.subtitle = "this is a notification to wish you to.."
+//                content.body = ".. have a nice day/evening"
                 content.badge = 1
                 content.sound = UNNotificationSound.default()
-                let trigger = UNCalendarNotificationTrigger(dateMatching: dateComp, repeats: false)
-                print(trigger)
-                let request = UNNotificationRequest(identifier: "Quiz", content: content, trigger: trigger)
+                let trigger = UNCalendarNotificationTrigger(dateMatching: dateComp, repeats: true)
+                let request = UNNotificationRequest(identifier: "\(i.id)", content: content, trigger: trigger)
+//                print(trigger)
                 UNUserNotificationCenter.current().add(request, withCompletionHandler: {
                     error in
                 })
@@ -97,6 +99,7 @@ class RealmHelper {
             nextEpToBeUpdated.nextEpTimeMinute = newEp.nextEpTimeMinute
         }
     }
+    
     static func updateNextEpisodeLink(nextEpLinkToBeUpdated: Series,newEpLink: Series) {
         let realm = try! Realm()
         try! realm.write() {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class MyListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -15,7 +16,6 @@ class MyListViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var series = RealmHelper.retrieveSeries()
     
     override func viewDidLoad() {
-        self.navigationController!.navigationBar.topItem!.title = "My List"
         super.viewDidLoad()
         tableview.delegate = self
         tableview.dataSource = self
@@ -23,9 +23,10 @@ class MyListViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        series = RealmHelper.retrieveSeries()
+        self.navigationController!.navigationBar.topItem!.title = "My List"
         UpdateNextEpisodeLink.updateLink()
         UpdateEpisodes.updatedEp()
+        series = RealmHelper.retrieveSeries()
         tableview.reloadData()
         
     }
@@ -38,6 +39,8 @@ class MyListViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCellEditingStyle.delete {
             RealmHelper.deleteSeries(series: series[indexPath.row])
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            UNUserNotificationCenter.current().removeAllDeliveredNotifications()
             RealmHelper.notify()
             tableView.reloadData()
             
@@ -48,7 +51,6 @@ class MyListViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // #warning Incomplete implementation, return the number of rows
         return series.count
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SavedSeriesViewCell
@@ -71,6 +73,7 @@ class MyListViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "showSavedShow", sender: nil)
         

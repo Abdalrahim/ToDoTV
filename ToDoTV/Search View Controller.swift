@@ -85,6 +85,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     
                     for series in jsonMovies{
                         self.aseries.append(SeriesSearch(json: series))
+                        self.aseries.sort(by: {$0.status > $1.status})
                     }
                     
                     self.resultTable.reloadData()

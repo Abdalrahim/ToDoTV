@@ -11,7 +11,7 @@ import SwiftyJSON
 struct SeriesRetrieve {
     let id: String
     let title: String
-    let type: String
+    let genres: Array<Any>
     let year: String
     let rating: Double
     let time: String
@@ -32,7 +32,7 @@ struct SeriesRetrieve {
     init(json: JSON) {
         self.id = json["id"].stringValue
         self.title = json["name"].stringValue
-        self.type = json["type"].stringValue
+        self.genres = json["genres"].arrayValue
         self.year = json["premiered"].stringValue
         self.rating = json["rating"]["average"].doubleValue
         self.time = json["schedule"]["time"].stringValue

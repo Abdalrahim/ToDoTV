@@ -32,9 +32,12 @@ public class UpdateNextEpisodeLink {
                         let json = JSON(value)
                         let retrieve = SeriesRetrieve(json: json)
                         
+                        print(i.link)
+                        
                         let newLink = Series()
-                        newLink.link = retrieve.nextEpisode
+                        newLink.nextEpLink = retrieve.nextEpisode
                         RealmHelper.updateNextEpisodeLink(nextEpLinkToBeUpdated: series, newEpLink: newLink)
+                        print(newLink)
                         
                     }
                 case .failure(let error):

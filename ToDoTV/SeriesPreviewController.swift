@@ -348,7 +348,7 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
     
     func nextEpDate() {
         if self.nxtEp == "" {
-            self.nxtep.text! = "Unavailable"
+            self.nxtep.text! = "Next episode unavailable"
             self.nextEpInfo.alpha = 0
         } else {
             self.nextEpInfo.alpha = 1
@@ -386,7 +386,7 @@ class SeriesPreviewController: UIViewController, UITableViewDataSource, UITableV
                     self.nxtEpTimeMinute = retrieve.airtime[startIndexMin...endIndexMin]
                     
                     
-                    self.nxtep.text! = "next episode at \(self.nxtEpDateYear)/\(self.nxtEpDateMonth)/\(self.nxtEpDateDay)"
+                    self.nxtep.text! = "Next episode at \(self.nxtEpDateYear)/\(self.nxtEpDateMonth)/\(self.nxtEpDateDay)"
                     
                     
                 }

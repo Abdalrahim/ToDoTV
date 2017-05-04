@@ -63,6 +63,8 @@ public class UpdateEpisodes {
                             
                             RealmHelper.updateNextEpisodeDate(nextEpToBeUpdated: series, newEp: newEpDate)
                             
+                            print("\(newEpDate.nextEpDateDay) \(newEpDate.nextEpDateMonth) \(newEpDate.nextEpDateYear)")
+                            
                             
                         }
                     case .failure(let error):

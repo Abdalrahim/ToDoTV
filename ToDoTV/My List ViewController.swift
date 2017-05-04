@@ -61,7 +61,7 @@ class MyListViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cell.nextEp.text = ""
         }
         else {
-            cell.nextEp.text = "next episode at \(series[indexPath.row].nextEpDateYear)/\(series[indexPath.row].nextEpDateMonth)/\(series[indexPath.row].nextEpDateDay)"
+            cell.nextEp.text = "Next episode at \(series[indexPath.row].nextEpDateYear)/\(series[indexPath.row].nextEpDateMonth)/\(series[indexPath.row].nextEpDateDay)"
         }
         
         //decoding a string to image

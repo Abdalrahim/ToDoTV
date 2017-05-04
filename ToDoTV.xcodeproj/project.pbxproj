@@ -13,6 +13,8 @@
 		0F159C671E14540C00085DBB /* NextEpisodeDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F159C661E14540900085DBB /* NextEpisodeDate.swift */; };
 		0F198B9C1DF1E8E500184B81 /* SeriesSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F198B9B1DF1E8E500184B81 /* SeriesSearchTableViewCell.swift */; };
 		0F198B9E1DF1F68400184B81 /* SeriesSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F198B9D1DF1F68300184B81 /* SeriesSearch.swift */; };
+		0F30ABDD1E9F8DFA00D91F99 /* ModelName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F30ABDC1E9F8DFA00D91F99 /* ModelName.swift */; };
+		0F30ABDF1E9FA64B00D91F99 /* Makes.json in Resources */ = {isa = PBXBuildFile; fileRef = 0F30ABDE1E9FA64B00D91F99 /* Makes.json */; };
 		0F538B691DFC342E006F5DC6 /* SeriesRetrieve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F538B681DFC342E006F5DC6 /* SeriesRetrieve.swift */; };
 		0F538B6B1E045F22006F5DC6 /* Series Cast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F538B6A1E045F20006F5DC6 /* Series Cast.swift */; };
 		0F538B6D1E0467B1006F5DC6 /* SeriesCastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F538B6C1E0467B1006F5DC6 /* SeriesCastTableViewCell.swift */; };
@@ -59,6 +61,8 @@
 		0F159C661E14540900085DBB /* NextEpisodeDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextEpisodeDate.swift; sourceTree = "<group>"; };
 		0F198B9B1DF1E8E500184B81 /* SeriesSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeriesSearchTableViewCell.swift; sourceTree = "<group>"; };
 		0F198B9D1DF1F68300184B81 /* SeriesSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeriesSearch.swift; sourceTree = "<group>"; };
+		0F30ABDC1E9F8DFA00D91F99 /* ModelName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelName.swift; sourceTree = "<group>"; };
+		0F30ABDE1E9FA64B00D91F99 /* Makes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Makes.json; path = ../../Rentour/Makes.json; sourceTree = "<group>"; };
 		0F538B681DFC342E006F5DC6 /* SeriesRetrieve.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeriesRetrieve.swift; sourceTree = "<group>"; };
 		0F538B6A1E045F20006F5DC6 /* Series Cast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Series Cast.swift"; sourceTree = "<group>"; };
 		0F538B6C1E0467B1006F5DC6 /* SeriesCastTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeriesCastTableViewCell.swift; sourceTree = "<group>"; };
@@ -125,7 +129,9 @@
 		0F5C1F7F1E7033E4006A83D4 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				0F30ABDE1E9FA64B00D91F99 /* Makes.json */,
 				0F7DFE5E1DEF3F88003F17AC /* Feed View Controller.swift */,
+				0F30ABDC1E9F8DFA00D91F99 /* ModelName.swift */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
@@ -272,6 +278,7 @@
 				0F076A191DF5CBD9004F8403 /* Main.storyboard in Resources */,
 				0F7DFE571DEE0484003F17AC /* LaunchScreen.storyboard in Resources */,
 				0F7DFE541DEE0484003F17AC /* Assets.xcassets in Resources */,
+				0F30ABDF1E9FA64B00D91F99 /* Makes.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +339,7 @@
 			files = (
 				0F7DFE4C1DEE0484003F17AC /* My List ViewController.swift in Sources */,
 				0F9841211E0ADE8700CFB299 /* RealmHelper.swift in Sources */,
+				0F30ABDD1E9F8DFA00D91F99 /* ModelName.swift in Sources */,
 				0FD232FC1E23AF4500FC31E3 /* UpdateEpisodes.swift in Sources */,
 				0F159C671E14540C00085DBB /* NextEpisodeDate.swift in Sources */,
 				0F5C1F811E75648D006A83D4 /* ShowEpisodeLink.swift in Sources */,
@@ -414,7 +422,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -459,7 +467,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -480,6 +488,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ToDoTV/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.abdalrahim.ToDoTV;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -499,6 +508,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ToDoTV/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.abdalrahim.ToDoTV;
 				PRODUCT_NAME = "$(TARGET_NAME)";
